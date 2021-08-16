@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    
+<style>
+
+* {
+    font-family: 
+    Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+.container{
+    /* border: 1px solid black;  */
+    display: flex; flex-direction: column; 
+    flex-wrap: wrap; justify-content: center;
+    width: 500px; height: 500px;
+    margin: auto; margin-top: 30px;
+    border-radius: 3px;
+}
+
+.box{
+    border: 1px solid black;
+    height: 33.33%;
+    background-color: rgb(239, 239, 239);
+    align-items: center;
+    cursor: pointer;
+    width: 33.33%;
+    display: flex; justify-content: center;
+    border-radius: 3px;    
+}
+
+.box:hover{
+    background-color: rgb(223, 223, 223);
+    transition: 0.7s;
+}
+
+.SQX{
+    font-size: 100px; 
+    font-weight: bold; 
+    margin: 0;
+    color: rgb(212, 41, 41);
+}
+
+.SQO{
+    font-size: 100px; 
+    font-weight: bold; 
+    margin: 0;
+    color: rgb(18, 63, 136);
+}
+
+.message .messagediv{
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 60px;
+}
+
+#messageP{
+    font-size: 50px;
+    margin: 0;
+
+}
+
+.button1{
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 40px;
+}
+
+.restartbtn{
+        border: none;
+        background-color: rgb(18, 164, 18);
+        font-size: 25px;
+        border-radius: 3px;
+        padding: 10px; padding-left: 15px; padding-right: 15px;
+        color: white;
+}
+
+.restartbtn:hover{
+    background-color: rgb(4, 124, 4);
+    transition: 1s;
+}
+
+
+</style>
+
+<div class="master">
+
+    <div class="message">
+
+        <div class="messagediv">
+            <p  id="messageP">
+                Player "X" Turn
+                </p>
+        </div>
+        
+    </div>
+
+    <div class="container">
+        <div onclick = "squareClicked(0);" id = "box0" class="box"></div> 
+        <div onclick = "squareClicked(1);" id = "box1" class="box"></div> 
+        <div onclick = "squareClicked(2);" id = "box2" class="box"></div> 
+        <div onclick = "squareClicked(3);" id = "box3" class="box"></div> 
+        <div onclick = "squareClicked(4);" id = "box4" class="box"></div> 
+        <div onclick = "squareClicked(5);" id = "box5" class="box"></div> 
+        <div onclick = "squareClicked(6);" id = "box6" class="box"></div> 
+        <div onclick = "squareClicked(7);" id = "box7" class="box"></div> 
+        <div onclick = "squareClicked(8);" id = "box8" class="box"></div>  
+    </div>
+
+    <div class="button1">
+        <button class="restartbtn" onclick="restartgame();">Restart</button>
+    </div>
+
+</div>
+
+</body>
+
+<script defer>
+
+var player = 'X';
+var squares = ['','','','','','','','',''];
+
+function hasOWon(){
+
+    if(squares[0] == 'O' && squares[1] == 'O'  && squares[2] == 'O'){
+        return true;
+    } else if(squares[3] == 'O' && squares[4] == 'O'  && squares[5] == 'O'){
+        return true;
+    } else if(squares[6] == 'O' && squares[7] == 'O'  && squares[8] == 'O'){
+        return true;
+
+    } else if(squares[0] == 'O' && squares[3] == 'O'  && squares[6] == 'O'){
+        return true;
+    } else if(squares[1] == 'O' && squares[4] == 'O'  && squares[7] == 'O'){
+        return true;
+    } else if(squares[2] == 'O' && squares[5] == 'O'  && squares[8] == 'O'){
+        return true;
+     
+    } else if(squares[0] == 'O' && squares[4] == 'O'  && squares[8] == 'O'){
+        return true;
+    
+    } else if(squares[6] == 'O' && squares[4] == 'O'  && squares[2] == 'O'){
+        return true;
+    }
+    
+    return false;
+
+}
+
+function hasXWon(){
+
+    if(squares[0] == 'X' && squares[1] == 'X'  && squares[2] == 'X'){
+        return true;
+    } else if(squares[3] == 'X' && squares[4] == 'X'  && squares[5] == 'X'){
+    return true;
+    } else if(squares[6] == 'X' && squares[7] == 'X'  && squares[8] == 'X'){
+        return true;
+
+    } else if(squares[0] == 'X' && squares[3] == 'X'  && squares[6] == 'X'){
+        return true;
+    } else if(squares[1] == 'X' && squares[4] == 'X'  && squares[7] == 'X'){
+        return true;
+    } else if(squares[2] == 'X' && squares[5] == 'X'  && squares[8] == 'X'){
+        return true;
+
+    } else if(squares[0] == 'X' && squares[4] == 'X'  && squares[8] == 'X'){
+        return true;
+
+    } else if(squares[6] == 'X' && squares[4] == 'X'  && squares[2] == 'X'){
+        return true;
+    }
+
+    return false;
+
+}
+
+function restartgame(){
+    
+    squares = ['','','','','','','','',''];
+    console.log(squares);
+
+    player = 'X';    
+    updateMessage('Player "X" Turn');
+
+
+    for(i = 0; i<9; i++){
+
+        let divsq = document.getElementById('box' + i);
+        divsq.innerHTML = '';
+
+    };
+
+}
+
+function updateMessage(str){
+    document.querySelector('#messageP').innerHTML = str; 
+}
+
+function squareClicked(sqid){
+    
+    //Get clicked div.
+    let divsq = document.getElementById('box' + sqid);
+
+    //Is the selected square = '' in squares array.
+
+    if(isEmpty(sqid) == true){
+    
+        //Update squares array with player variable.
+
+        squares[sqid] = player;
+
+        //Update UI.
+
+        if(player == 'X'){
+            divsq.innerHTML = `<p class='SQX'>X</p>`;
+        } else {
+            divsq.innerHTML = `<p class='SQO'>O</p>`;
+        }
+
+        //Swapping user.
+
+        if(player == 'X'){
+            player = 'O';
+            
+            updateMessage('Player "O" Turn');
+            
+        } else {
+
+            player = 'X';
+            
+            updateMessage('Player "X" Turn');
+
+        }
+
+        if(hasOWon() == true){
+            updateMessage('Player "O" is the Winner!')
+        } else if(hasXWon() == true){
+            updateMessage('Player "X" is the winner!')
+        }
+       
+    };
+    
+    console.log(player);
+    console.log(sqid);
+    console.log(squares);
+
+}
+
+function isEmpty(sqid){
+
+    if(squares[sqid] == ''){
+        return true;
+    } else {
+        return false;
+    }
+    
+}
+
+let boxes = document.querySelectorAll('.container .box');
+
+</script>
+
+</html>
